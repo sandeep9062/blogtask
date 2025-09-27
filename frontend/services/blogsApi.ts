@@ -165,6 +165,39 @@ export const blogsApi = createApi({
         }
       },
     }),
+
+    // UNLIKE a blog
+    unlikeBlog: builder.mutation<{ likes: number }, string>({
+      query: (id) => ({
+        url: `/unlike/${id}`,
+        method: "PUT",
+      }),
+      // Optimistic Update
+      async onQueryStarted(id, { dispatch, queryFulfilled, getState }) {
+        const state = getState() as RootState;
+        // Find the correct query entry to update
+        const slugResult = Object.values(state.blogsApi.queries).find(
+          (query) =>
+            query?.endpointName === "getBlogBySlug" &&
+            (query.data as Blog)?._id === id
+        ) as { data: Blog; originalArgs: string } | undefined;
+
+        if (!slugResult) return;
+        const { originalArgs: slug } = slugResult;
+
+        const patchResult = dispatch(
+          blogsApi.util.updateQueryData("getBlogBySlug", slug, (draft) => {
+            draft.likes -= 1;
+          })
+        );
+
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
+    }),
   }),
 });
 
@@ -179,4 +212,5 @@ export const {
   useDeleteBlogMutation,
   useAddCommentMutation,
   useLikeBlogMutation,
+  useUnlikeBlogMutation,
 } = blogsApi;

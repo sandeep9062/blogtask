@@ -40,6 +40,13 @@ export default function BlogCard({ blog, handleDelete, isDeleting, view }: BlogC
         </div>
         <div className="flex gap-2 mt-4">
           <button
+            onClick={() => router.push(`/blog/${blog.slug}`)}
+            className="px-4 py-2 text-sm rounded-md"
+            style={{ backgroundColor: "var(--primary)", color: "var(--background)" }}
+          >
+            View
+          </button>
+          <button
             onClick={() => router.push(`/blog/edit/${blog._id}`)}
             className="px-4 py-2 text-sm rounded-md"
             style={{ backgroundColor: "var(--primary)", color: "var(--background)" }}
@@ -75,6 +82,13 @@ export default function BlogCard({ blog, handleDelete, isDeleting, view }: BlogC
       <td className="p-3">{formattedDate}</td>
       <td className="p-3">
         <div className="flex gap-2">
+          <button
+            onClick={() => router.push(`/blog/${blog.slug}`)}
+            className="px-4 py-2 text-sm rounded-md"
+            style={{ backgroundColor: "var(--primary)", color: "var(--background)" }}
+          >
+            View
+          </button>
           <button
             onClick={() => router.push(`/blog/edit/${blog._id}`)}
             className="px-4 py-2 text-sm rounded-md"

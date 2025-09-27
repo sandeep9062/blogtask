@@ -23,11 +23,7 @@ export default function BlogListPage() {
   };
 
   if (areBlogsLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <Spin size="large" tip="Loading your blogs..." />
-      </div>
-    );
+    return <Spin size="large" tip="Loading your blogs..." fullscreen />;
   }
 
   if (isError) {

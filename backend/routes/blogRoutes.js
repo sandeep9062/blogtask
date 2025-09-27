@@ -10,6 +10,7 @@ import {
   deleteBlogImage,
   getBlogBySlug, // ✅ Import the new controller function
   likeBlog,
+  unlikeBlog,
   getBlogsByUser,
 } from "../controllers/blogController.js";
 import { checkAdmin, protect } from "../middlewares/authMiddleware.js";
@@ -33,5 +34,6 @@ router.delete("/:id/image", protect, deleteBlogImage);
 
 router.post("/:id/comments", addComment);
 router.put("/like/:id", protect, likeBlog);
+router.put("/unlike/:id", protect, unlikeBlog);
 
 export default router;

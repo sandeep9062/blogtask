@@ -61,6 +61,26 @@ export const createBlog = async (req, res) => {
   }
 };
 
+export const unlikeBlog = async (req, res) => {
+  try {
+    const blog = await Blog.findById(req.params.id);
+
+    if (!blog) {
+      return res.status(404).json({ success: false, message: "Blog not found" });
+    }
+
+    if (blog.likes > 0) {
+      blog.likes -= 1;
+    }
+    
+    await blog.save();
+
+    res.status(200).json({ success: true, likes: blog.likes });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
 export const likeBlog = async (req, res) => {
   try {
     const blog = await Blog.findById(req.params.id);
