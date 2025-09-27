@@ -8,6 +8,16 @@ special features added-- 1.Login/signup forms , JWT authetication ,,only add blo
 
 3. can like the blogpost
 
+
+LOGIN DETAILS to test:-
+
+
+
+EMAIL :-admin@gmail.com
+PASSWORD :-admin1234
+
+
+
 you need to login to add,delete,edit,like the blog posts
 
 cd client
